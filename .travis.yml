@@ -1,0 +1,28 @@
+language: c++
+
+#compiler:
+#  - gcc
+#  - clang
+
+services:
+  - docker
+
+script:
+  # test natively
+  - docker build                      \
+            -t innovanon/xmrstak:native \
+            --pull .
+  - docker run -d innovanon/xmrstak:native
+  - sleep 19
+  - docker ps -a
+  - docker stop innovanon/xmrstak:native
+  # deploy generic
+  - docker build                       \
+            -t innovanon/xmrstak:generic \
+            --pull .
+  - docker run -d innovanon/xmrstak:generic
+  - sleep 19
+  - docker ps -a
+  - docker stop innovanon/xmrstak:generic
+  # TODO deploy
+
